@@ -8,19 +8,19 @@ As part of `Deliverable ⓵ Development deployment: JWT Pizza`, start up the app
 | --------------------------------------------------- | ------------------ | ----------------- | ------------ |
 | View home page<br/>                                     |  home.tsx                    |   none                |  none            | <br/>
 | Register new user<br/>(t@jwt.com, pw: test)         |  register.tsx                  |  [post]/api/auth                 |  INSERT INTO user (name, email, password) VALUES (?, ?, ?) <br/> INSERT INTO userRole (userId, role, objectId) VALUES (?, ?, ?)           |
-| Login new user<br/>(t@jwt.com, pw: test)            |  login.tsx                  |  PUT api/auth                 |              |
-| Order pizza                                         |  Payment.tsx                    |  POST /api/order                 |              | 
+| Login new user<br/>(t@jwt.com, pw: test)            |  login.tsx                  |  [PUT] api/auth                 |  SELECT * FROM user WHERE email=? <br/> SELECT * FROM userRole WHERE userId=? <br/> INSERT INTO auth (token, userId) VALUES (?,?) ON DUPLICATE KEY UPDATE token=token             |
+| Order pizza                                         |  Payment.tsx                    |  POST /api/order                 |  INSERT INTO dinerOrder (dinerId, franchiseId, storeId, date) VALUES (?,?,?,now()) <br/> SELECT id FROM menu WHERE id=? <br/> INSERT INTO orderItem (orderId, menuId, description, price) VALUES (?,?,?,?)       | 
 | Verify pizza                                        |  delivery.jsx                  |  None                 | None             |
 | View profile page                                   |  dinerDashboard.tsx                  |  [GET] /api/user/me                 |              |
 | View franchise<br/>(as diner)                       |  franchiseDashboard.tsx                  |  [GET] /api/franchise/{userId}                 |              |
-| Logout                                              |  logout.tsx                  | [DELETE] /api/auth                 |              |
+| Logout                                              |  logout.tsx                  | [DELETE] /api/auth                 |  DELETE FROM auth WHERE token=?            |
 | View About page                                     |  home.tsx                  |  none                 |  none            |
 | View History page                                   |  history.tsx                  |  [GET] /api/order                |              |
-| Login as franchisee<br/>(f@jwt.com, pw: franchisee) |                    |                   |              |
+| Login as franchisee<br/>(f@jwt.com, pw: franchisee) |  login.tsx                  |  [PUT] api/auth                 |  SELECT * FROM user WHERE email=? <br/> SELECT * FROM userRole WHERE userId=? <br/> INSERT INTO auth (token, userId) VALUES (?,?) ON DUPLICATE KEY UPDATE token=token             |
 | View franchise<br/>(as franchisee)                  |  franchiseDashboard.tsx                  |  [GET] /api/franchise/{userId}                |              |
 | Create a store                                      |  createStore.tsx                  |  [POST] /api/franchise/{id}/store                |              |
-| Close a store                                       |                    |  [DELETE] /api/franchise/{id}/store              |  closeStore.tsx            |
-| Login as admin<br/>(a@jwt.com, pw: admin)           |                    |                   |              |
+| Close a store                                       |  closeStore.tsx                    |  [DELETE] /api/franchise/{id}/store              |            |
+| Login as admin<br/>(a@jwt.com, pw: admin)           |  login.tsx                  | [PUT] api/auth                  |  SELECT * FROM user WHERE email=? <br/> SELECT * FROM userRole WHERE userId=? <br/> INSERT INTO auth (token, userId) VALUES (?,?) ON DUPLICATE KEY UPDATE token=token             |
 | View Admin page                                     |  adminDashboard.tsx                  |  [GET] /api/franchise?                |              |
-| Create a franchise for t@jwt.com                    |  createFranchise.tsx                  |  [POST] /api/franchise                 |              |
-| Close the franchise for t@jwt.com                   |  closeFranchise.tsx                  |  [DELETE] /api/franchise/{id}                 |              |
+| Create a franchise for t@jwt.com                    |  createFranchise.tsx                  |  [POST] /api/franchise                 |  SELECT id, name FROM user WHERE email=? <br/> INSERT INTO franchise (name) VALUES (?) <br/> INSERT INTO userRole (userId, role, objectId) VALUES (?,?,?)       |
+| Close the franchise for t@jwt.com                   |  closeFranchise.tsx                  |  [DELETE] /api/franchise/{id}                 |  DELETE FROM store WHERE franchiseId=? <br/> DELETE FROM userRole WHERE objectId=? <br/> DELETE FROM franchise WHERE id=?           |
