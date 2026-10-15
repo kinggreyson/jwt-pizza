@@ -1,15 +1,19 @@
-import React from 'react';
-import { useBreadcrumb } from '../hooks/appNavigation';
-import { EmailIcon, StoreIcon } from '../icons';
-import { pizzaService } from '../service/service';
-import View from './view';
+import React from "react";
+import { useBreadcrumb } from "../hooks/appNavigation";
+import { EmailIcon, StoreIcon } from "../icons";
+import { pizzaService } from "../service/service";
+import View from "./view";
 
-import Button from '../components/button';
-import { Franchise } from '../service/pizzaService';
+import Button from "../components/button";
+import { Franchise } from "../service/pizzaService";
 
 export default function CreateFranchise() {
   const navigateToParentPath = useBreadcrumb();
-  const [franchise, setFranchise] = React.useState<Franchise>({ stores: [], id: '', name: '' });
+  const [franchise, setFranchise] = React.useState<Franchise>({
+    stores: [],
+    id: "",
+    name: "",
+  });
 
   async function createFranchise(event: React.FormEvent) {
     event.preventDefault();
@@ -27,7 +31,9 @@ export default function CreateFranchise() {
               <input
                 type="text"
                 required
-                onChange={(e) => setFranchise({ ...franchise, name: e.target.value })}
+                onChange={(e) =>
+                  setFranchise({ ...franchise, name: e.target.value })
+                }
                 className="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                 placeholder="franchise name"
               />
@@ -39,7 +45,12 @@ export default function CreateFranchise() {
               <input
                 type="email"
                 required
-                onChange={(e) => setFranchise({ ...franchise, admins: [{ email: e.target.value }] })}
+                onChange={(e) =>
+                  setFranchise({
+                    ...franchise,
+                    admins: [{ email: e.target.value }],
+                  })
+                }
                 className="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                 placeholder="franchisee admin email"
               />
@@ -50,7 +61,11 @@ export default function CreateFranchise() {
           </div>
 
           <Button title="Create" submit onPress={() => {}} />
-          <Button title="Cancel" onPress={navigateToParentPath} className="bg-transparent border-neutral-300" />
+          <Button
+            title="Cancel"
+            onPress={navigateToParentPath}
+            className="bg-transparent border-neutral-300"
+          />
         </form>
       </div>
     </View>

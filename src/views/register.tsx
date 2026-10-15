@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { KeyIcon, CloseEyeIcon, PersonIcon, EmailIcon } from '../icons';
-import Button from '../components/button';
-import { pizzaService } from '../service/service';
-import { useBreadcrumb } from '../hooks/appNavigation';
-import View from './view';
-import { User } from '../service/pizzaService';
+import React, { useEffect } from "react";
+import { KeyIcon, CloseEyeIcon, PersonIcon, EmailIcon } from "../icons";
+import Button from "../components/button";
+import { pizzaService } from "../service/service";
+import { useBreadcrumb } from "../hooks/appNavigation";
+import View from "./view";
+import { User } from "../service/pizzaService";
 
 interface Props {
   setUser: (user: User) => void;
 }
 
 export default function Register(props: Props) {
-  const [name, setName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  const [name, setName] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [message, setMessage] = React.useState("");
 
   const navigateToParentPath = useBreadcrumb();
-  const navigateToLogin = useBreadcrumb('login');
+  const navigateToLogin = useBreadcrumb("login");
   const nameRef = React.useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -96,7 +96,11 @@ export default function Register(props: Props) {
                   className="py-3 ps-11 pe-4 block w-full bg-white/10 border-white/20 text-white placeholder:text-white rounded-lg text-sm focus:border-white/30 focus:ring-white/30 sm:p-4 sm:ps-11"
                   placeholder="Password"
                 />
-                <button type="button" data-hs-toggle-password='{"target": "#password"}' className="text-neutral-400 absolute top-0 end-0 p-3 sm:p-4">
+                <button
+                  type="button"
+                  data-hs-toggle-password='{"target": "#password"}'
+                  className="text-neutral-400 absolute top-0 end-0 p-3 sm:p-4"
+                >
                   <CloseEyeIcon />
                 </button>
 
@@ -110,10 +114,13 @@ export default function Register(props: Props) {
               <Button title="Register" submit onPress={() => {}} />
             </div>
             <div className="text-white italic">
-              Already have an account?{' '}
-              <span className="underline hover:text-orange-400" onClick={navigateToLogin}>
+              Already have an account?{" "}
+              <span
+                className="underline hover:text-orange-400"
+                onClick={navigateToLogin}
+              >
                 Login
-              </span>{' '}
+              </span>{" "}
               instead.
             </div>
           </div>

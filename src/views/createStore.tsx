@@ -1,17 +1,17 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { useBreadcrumb } from '../hooks/appNavigation';
-import { StoreIcon } from '../icons';
-import View from './view';
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { useBreadcrumb } from "../hooks/appNavigation";
+import { StoreIcon } from "../icons";
+import View from "./view";
 
-import Button from '../components/button';
-import { pizzaService } from '../service/service';
-import { Store } from '../service/pizzaService';
+import Button from "../components/button";
+import { pizzaService } from "../service/service";
+import { Store } from "../service/pizzaService";
 
 export default function CreateStore() {
   const state = useLocation().state;
   const navigateToParentPath = useBreadcrumb();
-  const [store, setStore] = React.useState<Store>({ id: '', name: '' });
+  const [store, setStore] = React.useState<Store>({ id: "", name: "" });
 
   async function createStore(event: React.FormEvent) {
     event.preventDefault();
@@ -41,7 +41,11 @@ export default function CreateStore() {
           </div>
 
           <Button title="Create" submit onPress={() => {}} />
-          <Button title="Cancel" onPress={navigateToParentPath} className="bg-transparent border-neutral-300" />
+          <Button
+            title="Cancel"
+            onPress={navigateToParentPath}
+            className="bg-transparent border-neutral-300"
+          />
         </form>
       </div>
     </View>
